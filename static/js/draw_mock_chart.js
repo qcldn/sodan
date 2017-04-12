@@ -5,4 +5,4 @@ var data = names.map((o) => {
 			value: Math.floor(Math.random()*100)}
 });
 
-draw_pie_chart(data);
+draw_pie_chart(data, 'pie');

@@ -1,5 +1,5 @@
 //data in format [{name: '', value: ''}...]
-function draw_pie_chart(data) {
+function draw_pie_chart(data, elementId) {
   var width = 470;
   var height = 530;
   var radius = Math.min(width, height) / 3.1;
@@ -29,7 +29,7 @@ function draw_pie_chart(data) {
 
   var piedata = pie(data);
 
-  var svg = d3.select("#pie").append("svg")
+  var svg = d3.select("#" + elementId).append("svg")
       .attr("width", width)
       .attr("height", height)
     .append("g")
