@@ -2,7 +2,7 @@ var names = ['Daniel', 'Franzi', 'Hector', 'Nathan', 'Sam'];
 
 var data = names.map((o) => {
     return {name: o,
-            value: Math.floor(Math.random()*100)}
+            value: Math.ceil(Math.random()*100)}
 });
 
 // Add an event listener
@@ -28,7 +28,16 @@ function draw_buttons(selected, names, selector) {
   names.exit().remove()
 }
 
+var pie_chart_selector = '#pie'
+
 function init() {
+  function init_pie_chart() {
+    let container = d3.select(pie_chart_selector);
+    let svg = container.append('svg');
+    svg.append('g');
+  };
+  init_pie_chart();
+
   let selected = undefined;
   document.addEventListener('name-selected', function(e) {
     selected = e.detail.name
@@ -39,7 +48,14 @@ function init() {
 
 function draw(selected, names) {
   draw_buttons(selected, names, '#buttons');
-  draw_pie_chart(data, '#pie');
+  draw_pie_chart(data, pie_chart_selector);
 }
 
 init();
+
+function changeData() {
+    data.map((o) => { o.value = o.value + (Math.ceil(Math.random()*10) - 5) });
+    draw_pie_chart(data, pie_chart_selector);
+};
+
+setInterval(changeData, 100);

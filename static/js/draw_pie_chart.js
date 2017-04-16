@@ -29,18 +29,21 @@ function draw_pie_chart(data, selector) {
 
   var piedata = pie(data);
 
-  var svg = d3.select(selector).append("svg")
+  var container = d3.select(selector);
+
+  var g = container.select("svg")
       .attr("width", width)
       .attr("height", height)
-    .append("g")
+    .select("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-  var ticks = svg.selectAll("line")
-      .data(piedata)
-    .enter()
+  var ticks = g.selectAll("line")
+      .data(piedata);
+
+  var ticksEnter = ticks.enter()
       .append("line");
 
-  ticks.attr("x1", 0)
+  ticksEnter.attr("x1", 0)
     .attr("x2", 0)
     .attr("y1", -radius+10)
     .attr("y2", -radius)
@@ -49,21 +52,33 @@ function draw_pie_chart(data, selector) {
     return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
     });
 
-  var g = svg.selectAll(".arc")
-    .data(pie(data))
-  .enter().append("g")
-    .attr("class", "arc");
+  ticks.attr("y1", -radius+10)
+    .attr("y2", -radius)
+    .attr("transform", function(d) {
+      return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
+    });
 
-  g.append("path")
+  var arcs = g.selectAll(".arc")
+    .data(piedata);
+
+  arcsEnter = arcs.enter();
+
+  arcsEnter.append("g")
+    .attr("class", "arc")
+    .append("path")
     .attr("d", arc)
     .style("fill", function(d) { return color(d.data.value); });
 
-  var labels = svg.selectAll("text")
-                .data(piedata)
-                .enter()
-                .append("text");
+  arcs.select("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data.value); });
 
-  labels.attr("class", "label")
+  var labels = g.selectAll("text").data(piedata);
+
+  var labelsEnter = labels.enter();
+
+  labelsEnter.append("text")
+        .attr("class", "label")
         .attr("transform", function(d) {
            var dist   = radius + 6;
                angle  = (d.startAngle + d.endAngle) / 2; // Middle of wedge
@@ -78,6 +93,22 @@ function draw_pie_chart(data, selector) {
           else { return 'end'; }
         })
         .text(function(d) { return d.data.name; });
+
+  labels.attr("transform", function(d) {
+           var dist   = radius + 6;
+               angle  = (d.startAngle + d.endAngle) / 2; // Middle of wedge
+               x      = dist * Math.sin(angle);
+               y      = -dist * Math.cos(angle);
+           return "translate(" + x + "," + y + ")";
+         })
+        .attr("text-anchor", function(d) {
+          if ((d.startAngle + d.endAngle) / 2 < Math.PI) { return 'start'; }
+          else { return 'end'; }
+        });
+
+  arcs.exit().remove();
+  labels.exit().remove();
+  ticks.exit().remove();
 
   d3.selectAll('.arc')
     .attr('stroke', 'black');
