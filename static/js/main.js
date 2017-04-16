@@ -39,7 +39,7 @@ function init() {
 
 function draw(selected, names) {
   draw_buttons(selected, names, '#buttons');
-  draw_pie_chart(data, 'pie');
+  draw_pie_chart(data, '#pie');
 }
 
 init();
