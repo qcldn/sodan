@@ -1,8 +1,7 @@
 var names = ['Daniel', 'Franzi', 'Hector', 'Nathan', 'Sam'];
 
 var data = names.map((o) => {
-    return {name: o,
-            value: Math.ceil(Math.random()*100)}
+    return {name: o, value: 0}
 });
 
 // Add an event listener
@@ -47,6 +46,7 @@ function init() {
 }
 
 function draw(selected, names) {
+  speaking = selected;
   draw_buttons(selected, names, '#buttons');
   draw_pie_chart(data, pie_chart_selector);
 }
@@ -54,8 +54,10 @@ function draw(selected, names) {
 init();
 
 function changeData() {
-    data.map((o) => { o.value = o.value + (Math.ceil(Math.random()*10) - 5) });
-    draw_pie_chart(data, pie_chart_selector);
+  if (speaking !== undefined) {
+    data[names.indexOf(speaking)].value = data[names.indexOf(speaking)].value + (1/100);
+  }
+  draw_pie_chart(data, pie_chart_selector);
 };
 
 setInterval(changeData, 100);
