@@ -48,12 +48,21 @@ function draw_pie_chart(data, selector) {
     .attr("y1", -radius+10)
     .attr("y2", -radius)
     .attr("stroke", "black")
+    .attr('opacity', 0)
     .attr("transform", function(d) {
     return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
     });
 
   ticks.attr("y1", -radius+10)
     .attr("y2", -radius)
+    .attr('opacity', function (d) {
+      if (d.value == 0) {
+        return 0;
+      }
+      else {
+        return 1;
+      }
+    })
     .attr("transform", function(d) {
       return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
     });
@@ -92,6 +101,7 @@ function draw_pie_chart(data, selector) {
           if ((d.startAngle + d.endAngle) / 2 < Math.PI) { return 'start'; }
           else { return 'end'; }
         })
+        .attr('opacity', 0)
         .text(function(d) { return d.data.name; });
 
   labels.attr("transform", function(d) {
@@ -101,6 +111,14 @@ function draw_pie_chart(data, selector) {
                y      = -dist * Math.cos(angle);
            return "translate(" + x + "," + y + ")";
          })
+        .attr('opacity', function (d) {
+          if (d.value == 0) {
+            return 0;
+          }
+          else {
+            return 1;
+          }
+        })
         .attr("text-anchor", function(d) {
           if ((d.startAngle + d.endAngle) / 2 < Math.PI) { return 'start'; }
           else { return 'end'; }
