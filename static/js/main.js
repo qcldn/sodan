@@ -28,7 +28,7 @@ function draw_buttons(selected, names, selector) {
   var element = document.querySelector(selector);
   var root = d3.select(element);
   var names = root.selectAll('.name').data(names);
-  names.enter().append('div')
+  names.enter().append('button')
     .attr('class', 'name')
     .on('click', name => send('name-selected', { name }));
   names
