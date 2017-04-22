@@ -1,20 +1,32 @@
 
 
-function VoiceRecognition () {
+function VoiceRecognition (continuous) {
+  var self = 'webkitSpeechRecognition' in window ? new webkitSpeechRecognition() : console.warn('GET CHROME');
+  self.onresult = function (event) {
+     console.log(event.results);
+  }
+  self.hasStarted = false;
+  self.onstart = function () {
+    self.hasStarted = true;
+  }
+  // continuous by default and you can specify false if you want to
+  self.continuous = continuous !== undefined ? continuous :  true;
+  // receive interim results
 
-  this.recognition = 'webkitSpeechRecognition' in window ? new webkitSpeechRecognition() : console.warn('GET CHROME');
-  this.recognition.onresult = function (event) {
-    console.log('RESULT', event.results);
+  self.interimResults = true;
+
+  /* on end, restart if continuous is specified, this because
+     the continous stream will stop if no one speaks for a while
+     and it needs to be restarted
+  */
+  self.countCharacters = function (voiceString) {
+    return voiceString.split(' ').join('').length
   }
-  this.recognition.onstart = function () {
-    console.log('started');
+
+  self.onend = function() {
+   if (self && self.continuous) self.start();
   }
-  this.recognition.continuous = true;
-  this.recognition.interimResults = true;
-  this.recognition.onerror = function(event) { console.error(event); }
-    console.log('ended');
+
+  self.onerror = function(event) { console.error(event); }
+  return self;
 }
-// usage
-// var voice = new VoiceRecognition();
-
-// voice.recognition.start();

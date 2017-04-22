@@ -1,6 +1,8 @@
 .name {
 }
-
+label[for="switchMode"] {
+  margin-left: 20px;
+}
 .name.selected {
   font-weight: 700;
 }

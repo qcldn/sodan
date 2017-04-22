@@ -25,7 +25,7 @@ function draw_pie_chart(data, selector) {
 
   var pie = d3.layout.pie()
       .sort(null)
-      .value(function(d) { return d.value; });
+      .value(function(d) { console.log(d.value); return d.value; });
 
   var piedata = pie(data);
 
