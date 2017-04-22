@@ -4,20 +4,23 @@ function draw_pie_chart(data, selector) {
   var height = 530;
   var radius = Math.min(width, height) / 3.1;
 
+  // Alternative color schemes:
+  // var maxValue = Math.max(...data.map((o) => {
+  //   return o.value;
+  // }));
+
+  // var minValue = Math.min(...data.map((o) => {
+  //   return o.value;
+  // }));
+
+  // var color = d3.scale.linear().domain([minValue, maxValue])
+  //       .interpolate(d3.interpolateHcl)
+  //       .range([d3.rgb("#00FF00"), d3.rgb('#FF0000')]);
+
   // var color = d3.scale.ordinal()
   //     .range(["#4C255B", "#7A518A", "#9167A1", "#BF94D0", "#EDC0FF"]);
 
-  var maxValue = Math.max(...data.map((o) => {
-    return o.value;
-  }));
-
-  var minValue = Math.min(...data.map((o) => {
-    return o.value;
-  }));
-
-  var color = d3.scale.linear().domain([minValue, maxValue])
-        .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#00FF00"), d3.rgb('#FF0000')]);
+  var color = d3.scale.category20c();
 
   var arc = d3.svg.arc()
       .outerRadius(radius - 10)
@@ -76,11 +79,11 @@ function draw_pie_chart(data, selector) {
     .attr("class", "arc")
     .append("path")
     .attr("d", arc)
-    .style("fill", function(d) { return color(d.data.value); });
+    .style("fill", function(d, i) { return color(i); });
 
   arcs.select("path")
       .attr("d", arc)
-      .style("fill", function(d) { return color(d.data.value); });
+      .style("fill", function(d, i) { return color(i); });
 
   var labels = g.selectAll("text").data(piedata);
 

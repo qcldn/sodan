@@ -50,12 +50,14 @@ function init() {
   const input = document.querySelector('.name_input');
   input.addEventListener('change', add_person)
 
-  document.addEventListener('name-selected', function(e) {
-    selected = e.detail.name
-    draw(selected, names);
-  });
+
   draw(selected, names);
 }
+
+document.addEventListener('name-selected', function(e) {
+  selected = e.detail.name === selected ? undefined : e.detail.name;
+  draw(selected, names);
+});
 
 function draw(selected, names) {
   speaking = selected;

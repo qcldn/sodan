@@ -1,8 +1,44 @@
-.name {
+*{
+  /*border: 1px red solid;*/
 }
 label[for="switchMode"] {
   margin-left: 20px;
+  display: inline;
 }
-.name.selected {
+
+
+input{
+  border: 1px solid grey;
+  border-radius:4px;
+  padding:3px;
+  padding-left: 10px;
+  height: 38px;
+}
+#buttons{
+  display:inline-block;
+}
+
+#buttons button{
+  background:#ffffff;
+  margin-right:5px;
+}
+#buttons button.selected {
+  background:lightblue;
   font-weight: 700;
+}
+
+#pie{
+  margin:0 auto;
+  justify-content:center;
+}
+
+footer{
+  position:fixed;
+  bottom:0;
+  justify-content: center;
+  text-align:center;
+}
+
+#proto{
+  color:lightgrey;
 }
