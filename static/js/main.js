@@ -1,5 +1,6 @@
 var speaking = undefined;
 var names = ['Daniel', 'Franzi', 'Hector', 'Nathan', 'Sam'];
+var selected;
 
 var data = names.map((o) => {
     return {name: o, value: 0}
@@ -13,6 +14,14 @@ document.addEventListener("name-of-event", function(e) {
 function send(name, detail) {
   var event = new CustomEvent(name, { detail });
   document.dispatchEvent(event);
+}
+
+function add_person() {
+  let name = this.value;
+  this.value = '';
+  names.push(name)
+  data.push({name: name, value: 0})
+    draw(selected, names);
 }
 
 function draw_buttons(selected, names, selector) {
@@ -38,7 +47,9 @@ function init() {
   };
   init_pie_chart();
 
-  let selected = undefined;
+  const input = document.querySelector('.name_input');
+  input.addEventListener('change', add_person)
+
   document.addEventListener('name-selected', function(e) {
     selected = e.detail.name
     draw(selected, names);
