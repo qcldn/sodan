@@ -1,6 +1,6 @@
 var speaking = undefined;
-var names = ['Daniel', 'Franzi', 'Hector', 'Nathan', 'Sam'];
 var selected;
+var names = [];
 
 var data = names.map((o) => {
     return {name: o, value: 0}
