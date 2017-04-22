@@ -1,3 +1,4 @@
+var speaking = undefined;
 var names = ['Daniel', 'Franzi', 'Hector', 'Nathan', 'Sam'];
 
 var data = names.map((o) => {
