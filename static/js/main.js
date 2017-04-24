@@ -59,8 +59,6 @@ function init() {
     }
     draw(selected, names);
   } );
-  draw(selected, names);
-}
 
 function draw(selected, names) {
   speaking = selected;

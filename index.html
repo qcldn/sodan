@@ -1,12 +1,16 @@
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Prototype: real-time voice recognition</title>
-  <script type="text/javascript" charset="UTF-8" src="static/js/d3.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="static/css/styling.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Prototype: real-time voice recognition</title>
+    <script type="text/javascript" charset="UTF-8" src="static/js/d3.min.js"></script>
+  
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="static/css/styling.css">
+    <!-- CSS Frameworks -->
+    <link rel="stylesheet" href="static/css/normalize.css">
+    <link rel="stylesheet" href="static/css/skeleton.css">
+
 
 <h1>Sodan prototype: real-time voice recognition!</h1>
 <input class="name_input" />
@@ -14,7 +18,33 @@
 <div id="buttons"></div>
 <div id="stats"></div>
 
-<script src="static/js/draw_pie_chart.js"></script>
-<script src="static/js/main.js"></script>
-</body>
+    <script src="https://use.fontawesome.com/20e44b5acd.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="ten columns">
+          <h1>Sodan <small id='proto'>Prototype</small></h1>        
+        </div>
+
+      </div>
+      <div class="row">
+        <!-- Input -->
+        <i class="fa fa-user-o"></i>  <input class="name_input" placeholder="Add New User..."/><br/>
+        <!-- Buttons -->
+        <div id="buttons"></div>
+        <!-- End Buttons -->
+      </div>
+      <div class="row">
+        <!-- Pie Chart -->
+        <div id="pie"></div>
+        <!-- End Pie Chart -->
+      </div>
+      <footer>Open source project by: <a href="http://github.com/qcldn">Queer Code London</a></footer>
+    </div>
+
+    <script src="static/js/draw_pie_chart.js"></script>
+    <script src="static/js/main.js"></script>
+    <script src="static/js/voice_recognition.js"></script>
+  </body>
 </html>
