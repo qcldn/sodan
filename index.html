@@ -1,10 +1,9 @@
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Prototype: real-time voice recognition</title>
     <script type="text/javascript" charset="UTF-8" src="static/js/d3.min.js"></script>
-  
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="static/css/styling.css">
     <!-- CSS Frameworks -->
@@ -18,13 +17,20 @@
     <div class="container">
       <div class="row">
         <div class="ten columns">
-          <h1>Sodan <small id='proto'>Prototype</small></h1>        
+          <h1>Sodan <small id='proto'>Prototype</small></h1>
         </div>
 
       </div>
       <div class="row">
         <!-- Input -->
-        <i class="fa fa-user-o"></i>  <input class="name_input" placeholder="Add New User..."/><br/>
+        <i class="fa fa-user-o"></i>  <input class="name_input" placeholder="Add New User..."/>
+        <label for="switchMode"> Mode: </label>
+        <!-- Select -->
+         <select id="switchMode" onchange="switchMode(this)" name="switchMode">
+            <option selected value="timer">Timer</option>
+            <option value="voice">Voice Recognition</option>
+        </select>
+        <br/>
         <!-- Buttons -->
         <div id="buttons"></div>
         <!-- End Buttons -->
@@ -38,7 +44,9 @@
     </div>
 
     <script src="static/js/draw_pie_chart.js"></script>
-    <script src="static/js/main.js"></script>
     <script src="static/js/voice_recognition.js"></script>
+    <script src="static/js/main.js"></script>
+
   </body>
+
 </html>

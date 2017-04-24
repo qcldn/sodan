@@ -65,13 +65,68 @@ function draw(selected, names) {
   draw_pie_chart(data, pie_chart_selector);
 }
 
+// INITIALIZE D3 AND DATA
 init();
 
-function changeData() {
-  if (speaking !== undefined) {
-    data[names.indexOf(speaking)].value = data[names.indexOf(speaking)].value + (1/100);
-  }
-  draw_pie_chart(data, pie_chart_selector);
-};
 
-setInterval(changeData, 100);
+
+// INTIALIZE MODE VARIABLES
+var timerInterval;
+var voice = new VoiceRecognition();
+
+// SELECTOR BETWEEN TYPES
+function switchMode(element) {
+  var newValue = element.options[element.selectedIndex].value;
+  tearDownActiveModes();
+  switch (newValue) {
+    case 'timer': // real default
+      return initializeTimer();
+    case 'voice':
+      return listenToSpeech();
+    default:
+      console.error('could not select value');
+  }
+}
+
+function tearDownActiveModes() {
+  voice.continuous = false;
+  voice.stop();
+
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+}
+
+// TIMER - shows the amount of time a person has spoken
+
+function initializeTimer () {
+  function changeData() {
+    if (speaking !== undefined) {
+      data[names.indexOf(speaking)].value = data[names.indexOf(speaking)].value + (1/100);
+    }
+    draw_pie_chart(data, pie_chart_selector);
+  };
+
+  timerInterval = setInterval(changeData, 100);
+}
+
+// SPEECH RECOGNITION COUNTING - counts number of characters of speech
+
+function listenToSpeech() {
+ // initiate voice recognition
+ var voiceString;
+ voice.onresult = function (event) {
+
+    voiceString = event.results[0][0].transcript;
+
+    if (speaking && voiceString && voiceString['length']) {
+      data[names.indexOf(speaking)].value = data[names.indexOf(speaking)].value + (voice.countCharacters(voiceString) / 100);
+      draw_pie_chart(data, pie_chart_selector);
+    }
+  }
+  voice.continuous = true;
+  voice.start();
+}
+
+// TIMER IS DEFAULT
+initializeTimer();

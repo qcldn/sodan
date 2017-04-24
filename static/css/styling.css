@@ -1,18 +1,25 @@
 *{
   /*border: 1px red solid;*/
 }
+label[for="switchMode"] {
+  margin-left: 20px;
+  display: inline;
+}
+
 
 input{
   border: 1px solid grey;
   border-radius:4px;
   padding:3px;
+  padding-left: 10px;
+  height: 38px;
 }
 #buttons{
   display:inline-block;
 }
 
 #buttons button{
-  background:#ffffff; 
+  background:#ffffff;
   margin-right:5px;
 }
 #buttons button.selected {
